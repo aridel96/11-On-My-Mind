@@ -1,9 +1,11 @@
 let noteForm;
 let noteTitle;
 let noteText;
-let saveNoteBtn;
-let newNoteBtn;
+let saveNoteBtn;       // Save note button - Navbar
+let newNoteBtn;       // Create new note button - Navbar
 let noteList;
+let clearBtn;       // Clear note - Navbar
+
 
 if (window.location.pathname === '/notes') {
   noteForm = document.querySelector('.note-form');
@@ -12,18 +14,21 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   clearBtn = document.querySelector('.clear-btn');
-  noteList = document.querySelectorAll('.list-container .list-group');
+  noteList = document.querySelectorAll('.list-container .list-group');      // List of notes to the left
 }
+
 
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
 };
 
+
 // Hide an element
 const hide = (elem) => {
   elem.style.display = 'none';
 };
+
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
@@ -36,6 +41,7 @@ const getNotes = () =>
     }
   });
 
+
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -45,6 +51,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note)
   });
 
+
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -53,18 +60,19 @@ const deleteNote = (id) =>
     }
   });
 
-const renderActiveNote = () => {
-  hide(saveNoteBtn);
-  hide(clearBtn);
 
-  if (activeNote.id) {
-    show(newNoteBtn);
-    noteTitle.setAttribute('readonly', true);
-    noteText.setAttribute('readonly', true);
-    noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
-  } else {
-    hide(newNoteBtn);
+const renderActiveNote = () => {
+  hide(saveNoteBtn);                      // Hides the save Note Btn
+  hide(clearBtn);                        // Hides the clear Btn
+
+  if (activeNote.id) {                  // If this saved note with this id exist then
+    show(newNoteBtn);                               // Displays the new Note Btn
+    noteTitle.setAttribute('readonly', true);       // Set the note Title (on the right-hand side) to Read Only
+    noteText.setAttribute('readonly', true);        // Set the note Text area (on the right-hand side) to Read Only
+    noteTitle.value = activeNote.title;             // Set note Title value to the saved note title
+    noteText.value = activeNote.text;               // Set the note Text area value to the saved note text
+  } else {            
+    hide(newNoteBtn);               
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
     noteTitle.value = '';
@@ -72,16 +80,18 @@ const renderActiveNote = () => {
   }
 };
 
+
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value
   };
-  saveNote(newNote).then(() => {
-    getAndRenderNotes();
+  saveNote(newNote).then(() => {            // Calls saveNote with our newNote as an argument. SaveNote makes a post fetch request
+    getAndRenderNotes();                   // Gets saved notes and displays
     renderActiveNote();
   });
 };
+
 
 // Delete the clicked note
 const handleNoteDelete = (e) => {
@@ -101,6 +111,7 @@ const handleNoteDelete = (e) => {
   });
 };
 
+
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
@@ -108,24 +119,27 @@ const handleNoteView = (e) => {
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+
+// Sets the activeNote to an empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   show(clearBtn);
   renderActiveNote();
 };
 
+
 // Renders the appropriate buttons based on the state of the form
 const handleRenderBtns = () => {
   show(clearBtn);
-  if (!noteTitle.value.trim() && !noteText.value.trim()) {
+  if (!noteTitle.value.trim() && !noteText.value.trim()) {          // If there is not value for note Title or Text then hide the clear btn
     hide(clearBtn);
-  } else if (!noteTitle.value.trim() || !noteText.value.trim()) {
+  } else if (!noteTitle.value.trim() || !noteText.value.trim()) {     // If there is only a note Title or a note Text then hide the save btn
     hide(saveNoteBtn);
   } else {
     show(saveNoteBtn);
   }
 };
+
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
@@ -165,7 +179,7 @@ const renderNoteList = async (notes) => {
     return liEl;
   };
 
-  if (jsonNotes.length === 0) {
+  if (jsonNotes.length === 0) {       // Checks to see if we have any saved notes
     noteListItems.push(createLi('No saved Notes', false));
   }
 
