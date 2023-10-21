@@ -24,6 +24,6 @@ app.get('/notes', (req, res) => {              // GET Route for the notes page
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, () => {                        // Starts server
     console.log('Server running')
 })

@@ -42,13 +42,13 @@ const getNotes = () =>
   });
 
 
-const saveNote = (note) =>
+const saveNote = (note) =>          // Takes note object parameter and attaches it to the fetch post request
   fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(note)
+    body: JSON.stringify(note)      // note object is converted to string and attached in the body of the post request
   });
 
 
@@ -82,8 +82,8 @@ const renderActiveNote = () => {
 
 
 const handleNoteSave = () => {
-  const newNote = {
-    title: noteTitle.value,
+  const newNote = {                         // Creates a newNote object to pass to saveNote
+    title: noteTitle.value,                 // Takes the value from noteTitle and sets it as the value for the key title
     text: noteText.value
   };
   saveNote(newNote).then(() => {            // Calls saveNote with our newNote as an argument. SaveNote makes a post fetch request
