@@ -3,32 +3,12 @@
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
   ## Description
-  Project 11 of the University of Minnesota FullStack Coding Bootcamp
-
-  ## Table of Contents
-  - [Installation](#Installation)
-  - [Usage](#Usage)
-  - [Tests](#Tests)
-  - [Technologies Used](#Technologies-Used)
-  - [Contributing](#Contributing)
-  - [Questions](#Questions)
-  - [License](#License)
-
-  ## Installation
-  under construction
-
-  ## Usage
-  under construction
-
-  ## Tests
-  under construction
+  Project 11 of the University of Minnesota FullStack Coding Bootcamp focuses on creating a notes web application for users. 
+  Through this application users can quickly jot down whatever is on their mind and come back to it when they're ready. 
 
   ## Technologies Used
-  under construction
-
-  ## Contributing 
-  No
-
+  This project uses Express.JS, Node.JS, File System (fs), UUID, and Heroku. 
+  
   ## Questions
   Let's Make Something Great Together   
   See My Work: [https://github.com/aridel96](https://github.com/aridel96)   
