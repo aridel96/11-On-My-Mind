@@ -4,12 +4,12 @@ const fs = require('fs');
 const addNote = fs.createWriteStream('./db/db.json', { flags: 'a'})      // Creates a writable stream to the file passed as an argument. The a flag tells it were appending to the file
 
 notes.get('/', (req, res) => {
-    fs.readFile('./db/db.json', 'utf8', (err) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {                  // if there's an error console logs the error
             console.error(err)
         }
+        res.json(JSON.parse(data))      // Since readFile returns a string we convert to an object and then back to json. We attach this to the response
     })
-        .then((data) => res.json(json.parse(data)))     // .then since fs.readFile returns a promise object. Takes the data returned and converts to json
 })
 
 notes.post('/', (req, res) => {
@@ -22,7 +22,7 @@ notes.post('/', (req, res) => {
             note_id: uuidv4()           // calls uuidv4 to create a universally unique identifier for each note posted
         }
 
-        addNote.write(newNote);         // writes to the db.json file
+        addNote.write(JSON.stringify(newNote));         // writes to the db.json file
         addNote.end()                   // ends the write stream
 
         const response = {
