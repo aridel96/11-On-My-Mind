@@ -65,7 +65,7 @@ const renderActiveNote = () => {
   hide(saveNoteBtn);                      // Hides the save Note Btn
   hide(clearBtn);                        // Hides the clear Btn
 
-  if (activeNote.id) {                  // If this saved note with this id exist then
+  if (activeNote.note_id) {                  // If this saved note with this id exist then
     show(newNoteBtn);                               // Displays the new Note Btn
     noteTitle.setAttribute('readonly', true);       // Set the note Title (on the right-hand side) to Read Only
     noteText.setAttribute('readonly', true);        // Set the note Text area (on the right-hand side) to Read Only

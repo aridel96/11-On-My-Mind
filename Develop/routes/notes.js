@@ -1,7 +1,6 @@
 const notes = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
-// const addNote = fs.createWriteStream('./db/db.json', { flags: 'a'})      // Creates a writable stream to the file passed as an argument. The a flag tells it were appending to the file
 
 notes.get('/', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -53,19 +52,3 @@ notes.post('/', (req, res) => {
 // })
 
 module.exports = notes;
-
-
-
-
-
-
-
-
-// if (savedNotes === 'undefined' || savedNotes === 'null') {      // Checks to see if the db.json file is empty
-//     let notesArray = [];                                        // If empty then it creates an array and pushes the new Note to the array
-//     notesArray.push(newNote)
-//     addNote.write(JSON.stringify(notesArray));         // writes to the db.json file
-// } else {
-//     savedNotes.push(newNote)                   // Appends the new Note at the end of the array in db.json
-//     addNote.write(JSON.stringify(savedNotes));         
-// }
